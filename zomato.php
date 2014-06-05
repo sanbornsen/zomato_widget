@@ -5,7 +5,7 @@ Plugin Name: Zomato User Widget
 Plugin URI: http://www.zomato.com
 Description: User widget
 Version: 1.0
-Author: Zomans (Sudipta Sen)
+Author: Zomans
 Author URI: http://www.zomato.com/team
 License: none
 */
