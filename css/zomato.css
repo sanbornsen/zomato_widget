@@ -387,6 +387,22 @@
 }
 
 
+
+
+[data-icon]:before {
+  display: block;
+  float: left;
+  font-family: 'zombatsregular' !important;
+  font-weight: normal;
+  margin-right: 5px;
+  text-transform: none;
+  content: attr(data-icon);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  zoom: 1;
+}
+
+
 .uw-header {
   overflow: hidden;
 }
