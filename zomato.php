@@ -27,15 +27,20 @@ class zomato_user extends WP_Widget{
 		
 		
 		?>
+		<style>
+			.widget-field{
+				width: 100%;
+			}
+		</style>
 		<p>
 		    <label for="<?php echo $this->get_field_id( 'uid' ); ?>"><?php _e('User ID:', 'example'); ?></label>
 		    <input id="<?php echo $this->get_field_id( 'uid' ); ?>" name="<?php echo $this->get_field_name( 'uid' ); ?>" 
 		    <?php if(isset($instance['uid'])):?>
 		    	value="<?php echo $instance['uid']; ?>"
 			<?php endif;?>
-		    placeholder="<?php echo $defaults['uid']; ?>" style="width:100%;" required />
+		    placeholder="<?php echo $defaults['uid']; ?>" class="widget-field" required />
 		</p>
-		 
+		<!-- 
 		<p>
 		    <label for="<?php echo $this->get_field_id( 'height' ); ?>"><?php _e('Height:', 'example'); ?></label>
 		    <input id="<?php echo $this->get_field_id( 'height' ); ?>" name="<?php echo $this->get_field_name( 'height' ); ?>" 
@@ -44,14 +49,14 @@ class zomato_user extends WP_Widget{
 			<?php endif;?>
 		    placeholder="<?php echo $defaults['height']; ?>" style="width:100%;" />
 		</p>
-		 
+		 -->
 		<p>
 		    <label for="<?php echo $this->get_field_id( 'width' ); ?>"><?php _e('Width:', 'example'); ?></label>
 		    <input id="<?php echo $this->get_field_id( 'width' ); ?>" name="<?php echo $this->get_field_name( 'width' ); ?>"
 		    <?php if(isset($instance['width'])):?>
 		    	value="<?php echo $instance['width']; ?>"
 			<?php endif;?>
-		    placeholder="<?php echo $defaults['width']; ?>" style="width:100%;" />
+		    placeholder="<?php echo $defaults['width']; ?>" class="widget-field" />
 		</p>
 		 
 		<?php
@@ -60,18 +65,19 @@ class zomato_user extends WP_Widget{
 	function update( $new_instance, $old_instance ) {
 	    $instance = $old_instance;
 	 
-	    $instance['uid'] = $new_instance['uid'];
-	    $instance['height'] = $new_instance['height'];
-	    $instance['width'] = $new_instance['width'];
+	    $instance['uid'] = str_replace(" ", "", $new_instance['uid']);
+	    //$instance['height'] = $new_instance['height'];
+	    $instance['width'] = str_replace(" ", "", $new_instance['width']);
 
 	    // Setting height to 100% in default cases
+	    /*
 	    if($instance['height'] == ''){
 	    	$instance['height'] = '100%';
 	    }
-
+		*/
 	    // Setting width to 100% in default cases
-	    if($instance['width'] == ''){
-	    	$instance['width'] = '100%';
+	    if($instance['width'] == '' or (substr(trim($instance['width']), -1) != '%' and intval($instance['width'])<160)){
+	    	$instance['width'] = '200px';
 	    }
 
 	    // Not saving any value, incase the uid in none
@@ -132,18 +138,20 @@ class zomato_user extends WP_Widget{
 			$arr = array_slice(explode("/", $profile_img), -5);
 			$profile_image = implode("/", $arr);
 	 
+			$css_path = implode("/", array_slice(explode("/", dirname(__FILE__)."/css/zomato.css"), -5));
+			$js_path = implode("/", array_slice(explode("/", dirname(__FILE__)."/js/blur.js"), -5));
+			$jq_path = implode("/", array_slice(explode("/", dirname(__FILE__)."/js/jq.js"), -5));
 			echo $before_widget;
 			 
 			?>
-			<div style='height:<?=$height?>;width:<?=$width?>'>
+			<div style='width:<?=$width?>'>
 
 			<!-- Widget content starts here -->
 
 			<meta charset="utf-8" />
-			        
-			<link rel="stylesheet" type="text/css" href="http://www.zomato.com/tmp/tmp/server107aeaa37f7c6234c03b3fb7d69b7948ec.css" />
-			<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-			<script type="text/javascript" src="https://raw.githubusercontent.com/jakiestfu/Blur.js/master/blur.js"></script>
+			<link rel="stylesheet" type="text/css" href="<?=$css_path?>">
+			<script type="text/javascript" src="<?=$jq_path?>"></script>
+			<script type="text/javascript" src="<?=$js_path?>"></script>
 
 			    
 			<style>
@@ -172,10 +180,19 @@ class zomato_user extends WP_Widget{
 			            <p class="uw-name uw-p">
 			                <?=$name?>            
 			            </p>
+			            <?php if($bio!=""):?>
 			            <p class="uw-bio uw-p">
 			            	<?=$bio?>
 						</p>
-			            
+						<script type="text/javascript">
+							var height = parseInt($(".uw-bio").css("line-height"));
+							var lineCount = 2;
+							height *= lineCount;
+
+							$(".uw-bio").css("height", height + "px");
+						</script>
+						<?php endif;?>
+
 			            <p class="level uw-p">
 			                <span data-icon="ú" class="uflc-1"><?=$user_rating?></span> <?=$user_status?>            </p>
 
