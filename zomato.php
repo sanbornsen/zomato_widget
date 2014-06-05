@@ -194,10 +194,16 @@ class zomato_user extends WP_Widget{
 							$(".uw-bio").css("height", height + "px");
 						</script>
 						<?php endif;?>
-
-			            <p class="level uw-p">
+						<?php if($user_rating>11):?>
+			            <p class="level uw-p color4">
+			            <?php elseif ($user_rating>7):?>
+			            <p class="level uw-p color3">
+			            <?php elseif ($user_rating>3):?>
+			            <p class="level uw-p color2">
+			            <?php else:?>
+			            <p class="level uw-p color1">
+			            <?php endif;?>
 			                <span data-icon="ú" class="uflc-1"><?=$user_rating?></span> <?=$user_status?>            </p>
-
 			            <div class="clear"></div>
 
 			        </a>
