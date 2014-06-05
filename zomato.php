@@ -21,7 +21,7 @@ class zomato_user extends WP_Widget{
 	function form($instance){
 
 		//Set up some default widget settings.
-		$defaults = array( 'uid' => __('121232', 'example'), 'height' => __('250px', 'example'), 'width' => __('170px', 'example') );	
+		$defaults = array( 'uid' => __('0', 'example'), 'height' => __('250px', 'example'), 'width' => __('170px', 'example') );	
 		$instance = wp_parse_args( (array) $instance, $defaults ); 	
 		
 		
@@ -97,7 +97,7 @@ class zomato_user extends WP_Widget{
 		$content = "";
 		
 
-		if($uid != ''){
+		if($uid != 0){
 			try {
 				$ch = curl_init("http://www.zomato.com/php/getPublicUserData?user_id=".$uid);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -117,7 +117,7 @@ class zomato_user extends WP_Widget{
 			$usr_data = json_decode($content, true);
 		}
 		
-		if(!$usr_data["error"]){
+		if($usr_data["error"]==0 and $uid != 0){
 			$name = $usr_data['user_name'];
 			$bio = $usr_data['user_bio'];
 			$profile_link = $usr_data['profile_link'];
@@ -144,6 +144,8 @@ class zomato_user extends WP_Widget{
 			echo $before_widget;
 			 
 			?>
+
+
 			<div style='width:<?=$width?>'>
 
 			<!-- Widget content starts here -->
@@ -287,6 +289,9 @@ class zomato_user extends WP_Widget{
 			
 			<?php
 			echo $after_widget;
+		}
+		else{
+			echo "No Zomato User Found!! ";
 		}
 				
 	}
