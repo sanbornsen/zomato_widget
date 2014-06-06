@@ -146,14 +146,14 @@ class zomato_user extends WP_Widget{
 			?>
 
 
-			<div style='width:<?=$width?>'>
+			<div style='width:<?php echo $width;?>'>
 
 			<!-- Widget content starts here -->
 
 			<meta charset="utf-8" />
-			<link rel="stylesheet" type="text/css" href="<?=$css_path?>">
-			<script type="text/javascript" src="<?=$jq_path?>"></script>
-			<script type="text/javascript" src="<?=$js_path?>"></script>
+			<link rel="stylesheet" type="text/css" href="<?php echo $css_path;?>">
+			<script type="text/javascript" src="<?php echo $jq_path;?>"></script>
+			<script type="text/javascript" src="<?php echo $js_path;?>"></script>
 
 			    
 			<style>
@@ -169,22 +169,22 @@ class zomato_user extends WP_Widget{
 
 			    <div class="uw-header">
 
-			        <div id="blurred_image_widget" class="blurred_image_widget" style="width:226px; height:513px; background-image: url('<?=$profile_image?>'); background-size: cover; background-repeat: no-repeat; background-attachment: scroll; "></div>
+			        <div id="blurred_image_widget" class="blurred_image_widget" style="width:226px; height:513px; background-image: url('<?php echo $profile_image;?>'); background-size: cover; background-repeat: no-repeat; background-attachment: scroll; "></div>
 
-			        <a href="<?=$profile_link?>" target="_blank">
+			        <a href="<?php echo $profile_link;?>" target="_blank">
 
 			            <div class="uw-bg"></div>
 
-			            <img id="source-image-widget-profile" src="<?=$profile_image_link?>" alt="">
+			            <img id="source-image-widget-profile" src="<?php echo $profile_image_link;?>" alt="">
 
-			                        <div id="source-image-widget" class="hidden source_image_widget" style="background-image:url('<?=$profile_image?>');"></div>
+			                        <div id="source-image-widget" class="hidden source_image_widget" style="background-image:url('<?php echo $profile_image;?>');"></div>
 
 			            <p class="uw-name uw-p">
-			                <?=$name?>            
+			                <?php echo $name;?>            
 			            </p>
 			            <?php if($bio!=""):?>
 			            <p class="uw-bio uw-p">
-			            	<?=$bio?>
+			            	<?php echo $bio;?>
 						</p>
 						<script type="text/javascript">
 							var height = parseInt($(".uw-bio").css("line-height"));
@@ -203,7 +203,7 @@ class zomato_user extends WP_Widget{
 			            <?php else:?>
 			            <p class="level uw-p color1">
 			            <?php endif;?>
-			                <span data-icon="ú" class="uflc-1"><?=$user_rating?></span> <?=$user_status?>            </p>
+			                <span data-icon="ú" class="uflc-1"><?php echo $user_rating;?></span> <?php echo $user_status?>            </p>
 			            <div class="clear"></div>
 
 			        </a>
@@ -212,21 +212,21 @@ class zomato_user extends WP_Widget{
 
 			            <li>
 			                <a target="_blank" href="http://www.zomato.com/sanborn#reviews">
-			                    <span class="uw-stats--number"><?=$num_of_review?></span>
+			                    <span class="uw-stats--number"><?php echo $num_of_review;?></span>
 			                    <span class="uw-stats--label">Reviews</span>
 			                </a>
 			            </li>
 
 			            <li>
 			                <a target="_blank" href="http://www.zomato.com/sanborn#photos">
-			                    <span class="uw-stats--number"><?=$num_of_photos?></span>
+			                    <span class="uw-stats--number"><?php echo $num_of_photos;?></span>
 			                    <span class="uw-stats--label">Photos</span>
 			                </a>
 			            </li>
 
 			            <li>
 			                <a target="_blank" href="http://www.zomato.com/sanborn#network">
-			                    <span class="uw-stats--number"><?=$num_of_followers?></span>
+			                    <span class="uw-stats--number"><?php echo $num_of_followers;?></span>
 			                    <span class="uw-stats--label">Followers</span>
 			                </a>
 			            </li>
@@ -243,7 +243,7 @@ class zomato_user extends WP_Widget{
 
 			<div class="uw-powered">
 			    <a href="http://www.zomato.com/" target="_blank">
-			       <img src="<?=$zomato_logo_link?>" alt="Zomato" />
+			       <img src="<?php echo $zomato_logo_link;?>" alt="Zomato" />
 			    </a>
 			</div>
 
